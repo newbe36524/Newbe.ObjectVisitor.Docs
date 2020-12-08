@@ -15,15 +15,15 @@ dateCreated: 2020-11-26T14:46:40.417Z
 
 ![banner.svg](/icons/banner.svg)
 
-Newbe.ObjectVisitor 帮助开发者可以用最简单的最高效的方式访问一个普通 class 的所有属性。从而实现：验证、映射、收集等等操作。
+Newbe.ObjectVisitor helps developers access all the properties of a normal class in the simplest and most efficient way.This enables：validation, mapping, collection, and more.
 
-例如, 在你的代码中有这样一个简单的类。
+For example, there is such a simple class in your code.
 
 ```cs
 var order = new OrderInfo();
 ```
 
-你想要将这个类所有的属性和值都打印出来，那么你可以采用反射来完成：
+If you want to print out all the properties and values of this class, you can use reflection to：
 
 ```cs
 for(var pInfo in typeof(OrderInfo).GetProperties())

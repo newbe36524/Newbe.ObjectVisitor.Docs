@@ -32,11 +32,11 @@ for(var pInfo in typeof(OrderInfo).GetProperties())
 }
 ```
 
-如果你使用这个类库，则可以采用以下方式来实现一样的效果：
+If you use this class library, you can achieve the same effect by：
 
 ```cs
-// 调用扩展方法 .V
-// 就可以得到一个针对 Order 类型的 visitor
+// invoke  .V
+// there is a visitor for OrderInfo
 var visitor = order.V();
 
 visitor.ForEach(context=>{
@@ -45,18 +45,18 @@ visitor.ForEach(context=>{
     Console.Writeline($"{name}: {value}");
 }).Run();
 
-// 也可以把代码都写在一行
+// it can be joined into one line.
 order.V().ForEach(c=> Console.Writeline($"{c.Name}: {c.Value}")).Run();
 
-// 或者也可以调用这个较短的方法
+// or shorter
 order.FormatToString();
 ```
 
-[你可以点击此处来进入“快速入门”，了解完整的使用方法](/001-quick-started/001-my-fisrt-object-visitor)
+[You can click here to get into the "Quick Start" and learn about the full documents](/001-quick-started/001-my-fisrt-object-visitor)
 
-## 那我为什么要这样做?
+## So why do I have to do this?
 
-- **因为这样更快！** 这个类库使用[表达式树](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/)实现，因此它拥有比直接使用反射快上 10 倍的性能.
+- **because it's so much faster!** 这个类库使用[表达式树](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/)实现，因此它拥有比直接使用反射快上 10 倍的性能.
 - **因为这样更可读！** 通过这个类库你可以使用链式 API 和命名方法来创建一个委托，这样可以让你的代码实现和硬编码同样的可读效果。
 - **因为这样更具扩展性！** 如果使用了这个类库，你就拥有了一个简便的方法来访问一个类所有的属性。因此，你就做很多你想做的事情，比如：创建一个验证器来验证你的模型，修改一些可能包含敏感数据的属性从而避免输出到日志中，创建一个类似于 AutoMapper 的对象映射器但是拥有更好的性能，诸如此类。
 

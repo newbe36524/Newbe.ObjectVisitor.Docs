@@ -56,20 +56,20 @@ order.FormatToString();
 
 ## So why do I have to do this?
 
-- **because it's so much faster!** 这个类库使用[表达式树](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/)实现，因此它拥有比直接使用反射快上 10 倍的性能.
-- **因为这样更可读！** 通过这个类库你可以使用链式 API 和命名方法来创建一个委托，这样可以让你的代码实现和硬编码同样的可读效果。
-- **因为这样更具扩展性！** 如果使用了这个类库，你就拥有了一个简便的方法来访问一个类所有的属性。因此，你就做很多你想做的事情，比如：创建一个验证器来验证你的模型，修改一些可能包含敏感数据的属性从而避免输出到日志中，创建一个类似于 AutoMapper 的对象映射器但是拥有更好的性能，诸如此类。
+- **because it's so much faster!** this class library is implemented using[expression tree](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/), so it has 10 times faster performance than direct reflection.
+- **because it's more readable!** this class library you can use chained APIs and naming methods to create a delegate that allows your code to implement the same readable effect as hard-coded.
+- **because it's more extendable!** if you use this class library, you have an easy way to access all the properties of a class.So you do a lot of things you want to do, like：create a validator to validate your model, modify properties that might contain sensitive data to avoid output to logs, create an object mapper similar to AutoMapper but have better performance, and so on.
 
-## 联系方式
+## Contacts
 
-- QQ 群: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
+- QQ group: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
 - Discord：<https://discord.gg/6yd3mK6M>
 
-## 参与贡献
+## Contributing
 
-目前我们仍然需要更多的朋友来参与到这个紧张刺激的项目中。
+We still need more friends to get involved in this intense project.
 
-[你可以点击此处查看详细的贡献方式](/900-contribution/001-welcome-contributors)
+[You can click here for detailed contributions](/900-contribution/001-welcome-contributors)
 
 ## Stargazers over time
 

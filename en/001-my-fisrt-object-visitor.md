@@ -1,5 +1,5 @@
 ---
-title: 我的第一个 Object Visitor
+title: 0x01-我的第一个 Object Visitor
 description:
 published: true
 date: 2020-11-26T14:51:47.587Z
@@ -41,7 +41,7 @@ dotnet add package newbe.objectvisitor
 
 ## 创建一个简单的数据模型
 
-我们使用 IDE 打开刚刚创建的项目，添加一个简单的数据模型类 OrderInfo :
+我们使用 IDE 打开刚刚创建的项目，添加一个简单的数据模型类 `OrderInfo` :
 
 ```cs
 public class OrderInfo
@@ -56,9 +56,9 @@ public class OrderInfo
 
 我们在 Program.cs 中添加以下代码来完成这些逻辑：
 
-1. new 一个 OrderInfo order
-2. 使用 StringBuilder 将 order 的所有属性名称和值拼接在一起
-3. 输出最后的 string
+1. `new` 一个 `OrderInfo` `order`
+2. 使用 `StringBuilder` 将 `order` 的所有属性名称和值拼接在一起
+3. 输出最后的 `string`
 
 ```cs
 using System;
@@ -112,8 +112,8 @@ TotalPrice: 62359.1478
 
 我们通过 Newbe.ObjectVisitor 来一样实现上面的逻辑：
 
-1. 使用 V() 扩展方法来创建一个 Object Visitor
-2. 调用 Object Visitor 的 ForEach 方法来注册 Visit 过程的行为
+1. 使用 `V()` 扩展方法来创建一个 Object Visitor
+2. 调用 Object Visitor 的 `ForEach` 方法来注册 Visit 过程的行为
 3. 运行创建好的 Object Visitor
 
 ```cs
@@ -152,3 +152,35 @@ namespace yueluo_dalao_yes
 ```
 
 运行这个代码，你将会得到和上一节相同的结果。
+
+## 那这么做究竟带来了什么好处？
+
+首先，使用 Object Visitor 可以动态的适应模型类的变化，这点好处非常明显。
+
+当 `OrderInfo` 中的属性增加时，“拼接部分”的代码可以不用变化，实现动态的适配。
+
+另外，还有一些好处是本示例没有体现的，将会在后续的文档中进行介绍：
+
+1. 它的运行效率很高。根据已有的基准测试，其性能表征和直接硬编码差距很小。
+2. 可以使用丰富的方式来对需要访问的属性进行多种方式过滤，例如：基于 `Attribute` 的过滤。
+3. 有了这种方式之后可以很轻松的扩展出基于对象属性的其他功能，例如：对象的属性验证（FluentValidation），对象的映射（AutoMapper）和对象的比较（Comparer）。
+
+## 那这和直接使用反射有什么区别？
+
+使用反射来实现以上的效果也是可以的，但相较来说，Object Visitor 的实现方式在性能方面根据优势：
+
+1. 根据已有的基准测试，Object Visitor 基于表达式树实现，其运行效率要比直接使用反射相关的读写方法高出许多。
+2. Object Visitor 提供了基于泛型，在一些特定的场景可以完全避免装箱拆箱所带来的开销。
+
+> [你可以通过点击这里来查看使用反射和使用 object visitor 的基准测试](/800-benchmark/001-object-visitor-vs-relfection-vs-directly)
+
+## 本篇小结
+
+到这里，你已经初步了解了什么是 Newbe.ObjectVisitor，以及其基本的用法。
+
+不过，这只是演示代码，展现的内容非常有限，因此，你还可以继续阅读下篇来进一步了解更多紧张刺激的特性。
+
+你也可以加入以下这些群组来和我们一起讨论：
+
+- QQ 群: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
+- Discord：<https://discord.gg/6yd3mK6M>

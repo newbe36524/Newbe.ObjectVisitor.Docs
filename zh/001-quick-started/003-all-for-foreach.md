@@ -77,11 +77,11 @@ Context 也有泛型版本的重载。其作用也就是结合了 Context 和泛
 和常规的重载类似，如果一个 object visitor 被指定了需要传递扩展数据。那么其重载也将发生变化，可以对传入的扩展数据进行处理：
 
 ```cs
-ForEach(Expression<Action<IObjectVisitorContext<T, object>>> foreachAction)
-ForEach(Expression<Action<string, object>> foreachAction)
+ForEach(Expression<Action<IObjectVisitorContext<T, TExtend, object>>> foreachAction)
+ForEach(Expression<Action<string, object, TExtend>> foreachAction)
 
-ForEach<TValue>(Expression<Action<IObjectVisitorContext<T, TValue>>> foreachAction)
-ForEach<TValue>(Expression<Action<string, TValue>> foreachAction)
+ForEach<TValue>(Expression<Action<IObjectVisitorContext<T, TExtend, TValue>>> foreachAction)
+ForEach<TValue>(Expression<Action<string, TValue, TExtend>> foreachAction)
 ```
 
 这点开发者们应该非常熟悉，因为我们前篇中使用的“格式化对象”示例中就使用的是带有扩展数据的 object visitor。

@@ -1,8 +1,8 @@
 ---
-title: 创建并缓存 Object Visitor
+title: 0x02-创建并缓存 Object Visitor
 description:
 published: true
-date: 2020-11-26T14:51:47.587Z
+date: 2020-11-26T14:51:47.581Z
 tags:
 editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z

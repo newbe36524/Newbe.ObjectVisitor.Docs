@@ -8,46 +8,46 @@ editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z
 ---
 
-我们非常需要，也非常欢迎您可以参与到我们的项目中来。
+We need you very much and welcome you to participate in our projects.
 
-## 参与代码贡献
+## Code Contributions
 
-阅读一下内容可以更有助于您参与到本项目的代码贡献中。
+Reading the content can be more helpful for your participation in the code contribution of this project.
 
-### 提交 issue
+### Submit issue
 
-- 如果您有什么紧张刺激的好点子
-- 或者如果您发现了一只令人抓狂的碧油鸡
-- 亦或是您觉得代码某处的结构让人困惑
-- 更甚至您觉得文档库中存在一些缺陷
-- 也可以是您觉得今天天气不错
+- If you have any good ideas
+- Or if you find a BUG
+- Or you think the structure of the code somewhere is confusing
+- Even more even you feel that there are some flaws in the document library
+- You can also think the weather is good today
 
-您都可以在本项目相关的 issue 中提交您的看法。以下是本项目主要的代码仓库。
+You can submit your opinion in the issues associated with this project.The following is the main code repository for this project.
 
-- [Newbe.ObjectVisitor](https://github.com/newbe36524/Newbe.ObjectVisitor) 项目源码主仓库
-- [Newbe.ObjectVisitor.Docs](https://github.com/newbe36524/Newbe.ObjectVisitor.Docs) 开发文档仓库，也就是当前文章的仓库。
+- [Newbe.ObjectVisitor](https://github.com/newbe36524/Newbe.ObjectVisitor) the project source main repository
+- [Newbe.ObjectVisitor.Docs](https://github.com/newbe36524/Newbe.ObjectVisitor.Docs) document repository, which is the repository of the current article.
 
-当然，如果您觉得 Gitee 也不错，那么您也可以在以下仓库提交 issue。不过我们还是更加建议您可以在 Github 上提交 issue。
+Of course, if you think Gitee is good, you can also submit a issue in the following repository.However, we recommend that you submit a issue on Github.
 
 - [Newbe.ObjectVisitor](https://gitee.com/yks/Newbe.ObjectVisitor)
 
-### 写代码，提交
+### Write code, submit
 
-您可以使用 Github 中的 fork 功能将代码 fork 到您自己的名下。然后按照您的想法进行修改。
+You can use the fork feature in Github to put code fork under your own name.Then follow your ideas and make changes.
 
-修改完毕并通过单元测试之后，您就可以将您的修改以 Pull Request 的形式提交到本项目代码仓库的 develop 分支。
+After you have modified and passed unit tests, you can submit your modifications as Pull Request to the develop branch of this project code repository.
 
-您的 Pull Request 将会在一下界面罗列:
+Your Pull Request will be listed on the site:
 
 <https://github.com/newbe36524/Newbe.ObjectVisitor/pulls>
 
-我们会及时对您的 Pull Request 进行查看，并决定何时合并。在这个过程中我们很可能为了更好的促成项目的发展进行多次交流，因此请您可以保持耐心和热情。
+We'll take a look at your Pull Request in time and decide when to merge.In the process we are likely to have many exchanges in order to better facilitate the development of the project, so please be patient and enthusiastic.
 
-Newbe.ObjectVisitor 是基于表达式树为主要内容进行实现的帮助库，因此如果您对表达式有一定了解，将会非常有利于您参与到项目中。您可以通过[《Working with Expression Trees in C#》](https://tyrrrz.me/blog/expression-trees)这篇文章来了解表达式树在这方面的应用。
+Newbe.ObjectVisitor is a help library that is implemented based on expression trees as the main content, so if you have some knowledge of expressions, it will be very helpful for you to participate in the project.You can learn about the application of the expression tree in this area by[<Working with Expression Trees in C#>](https://tyrrrz.me/blog/expression-trees)This article.
 
-## 参与讨论
+## Discussion
 
-您可以直接参与日常的一些讨论：
+You can participate directly in some of the daily discussions：
 
-- QQ 群: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
+- QQ group: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
 - Discord：<https://discord.gg/6yd3mK6M>

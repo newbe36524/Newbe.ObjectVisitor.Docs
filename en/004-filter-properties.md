@@ -114,4 +114,4 @@ Yes, it's the code that disappears directly.Instead of adding`if`judgment.
 
 Filtering properties can be used to skip the properties that do not want to participate in the object visitor access process. This is usually required in some specific scenarios.
 
-开发者可以通过[0x05-综合示例，导出 CSV](/001-quick-started/005-csv-helper)来了解具体的应用场景。
+Developers can use example in [0x05-comprehensive example, exporting CSV](/001-quick-started/005-csv-helper) to understand object visitor.

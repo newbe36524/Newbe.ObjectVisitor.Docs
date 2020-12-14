@@ -10,7 +10,7 @@ dateCreated: 2020-11-26T14:46:40.417Z
 
 ### Cache vs None Cached Object Visitor
 
-以下基准测试所使用的物理机配置：
+The physical machine used by the following benchmark tests:
 
 ```ini
 
@@ -27,17 +27,17 @@ Intel Xeon CPU E5-2678 v3 2.50GHz, 1 CPU, 24 logical and 12 physical cores
 
 ```
 
-| 方法              | 描述          |
-| --------------- | ----------- |
-| CacheVisitor    | 缓存 Visitor  |
-| NoCacheVisitor  | 不缓存 Visitor |
-| ReflectProperty | 使用反射来实现     |
+| Method          | Description              |
+| --------------- | ------------------------ |
+| CacheVisitor    | Cache Visitor            |
+| NoCacheVisitor  | Do not cache the Visitor |
+| ReflectProperty | To use reflection        |
 
-图表:
+Chart:
 
 ![newbe.objectvisitor.benchmarktest.cachevisitortest-barplot.png](/benchmark/newbe.objectvisitor.benchmarktest.cachevisitortest-barplot.png)
 
-数据：
+Data:
 
 | Method          | Job          | Runtime       |         Mean |       Error |      StdDev |    Ratio | RatioSD | Rank |
 | --------------- | ------------ | ------------- | ------------:| -----------:| -----------:| --------:| -------:| ----:|

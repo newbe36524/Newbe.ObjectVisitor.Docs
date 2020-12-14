@@ -87,6 +87,29 @@ FilterProperty(p => true).ForEach<string>((name, value) => _ )
 1. 访问时将会发生强制转换，如果转换失败将会引发异常
 2. 默认不写过滤条件时将会按照给定的泛型类型进行过滤。
 
+## 过滤属性发生在构建 object visitor 时
+
+object visitor 的创建和使用是分开的。其本质就是表达式的构建和编译步骤的区分。而过滤属性这个操作就是发生在构建的过程中，即编译出来的代码关于被过滤属性的字段会直接消失。
+
+我们结合`FormatToStringExtensions`中的示例来理解。
+
+在没有过滤属性之前，object visitor 生成的委托可能形如如下代码：
+
+```cs
+sb.AppendFormat("{0}: {1}{2}", nameof(order.OrderId), order.OrderId, Environment.NewLine);
+sb.AppendFormat("{0}: {1}{2}", nameof(order.Buyer), order.Buyer, Environment.NewLine);
+sb.AppendFormat("{0}: {1}{2}", nameof(order.TotalPrice), order.TotalPrice, Environment.NewLine);
+```
+
+但是如果，增加了过滤条件，将`Buyer`属性排除在外，那么生成的代码就会变为：
+
+```cs
+sb.AppendFormat("{0}: {1}{2}", nameof(order.OrderId), order.OrderId, Environment.NewLine);
+sb.AppendFormat("{0}: {1}{2}", nameof(order.TotalPrice), order.TotalPrice, Environment.NewLine);
+```
+
+是的，是这段代码直接消失。而不是增加了`if`判断。
+
 ## 总结
 
 过滤属性可以用于跳过那些不想要参与 object visitor 访问过程的属性。 这通常在一些特定的场景下需要。

@@ -1,5 +1,5 @@
 ---
-title: 修改属性
+title: Modify the property
 description:
 published: true
 date: 2020-11-26T14:51:47.587Z
@@ -8,9 +8,9 @@ editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z
 ---
 
-## 修改属性
+## Modify the property
 
-以下基准测试所使用的物理机配置：
+The physical machine used by the following benchmark tests:
 
 ```ini
 
@@ -27,18 +27,18 @@ Intel Xeon CPU E5-2678 v3 2.50GHz, 1 CPU, 24 logical and 12 physical cores
 
 ```
 
-现在，你可能需要将一个对象中的 Password 属性值替换为'\*\*\*'。我们可以采用以下方案实现：
+Now you may need to replace the Password property value in one object with a '\*\*\*'.We can adopt the following programme to achieve：
 
-| 方法           | 描述                       |
-| ------------ | ------------------------ |
-| Directly     | 直接使用赋值语句进行修改             |
-| UsingVisitor | 使用缓存的 ObjectVisitor 进行修改 |
+| Method       | Description                                               |
+| ------------ | --------------------------------------------------------- |
+| Directly     | Make a modification directly with an assignment statement |
+| UsingVisitor | Use the cached ObjectVisitor to make modifications        |
 
-图表:
+Chart:
 
 ![newbe.objectvisitor.benchmarktest.changepasswordtest-barplot.png](/benchmark/newbe.objectvisitor.benchmarktest.changepasswordtest-barplot.png)
 
-数据:
+Data:
 
 | Method       | Job          | Runtime       |       Mean |    Error |   StdDev | Ratio | RatioSD | Rank |
 | ------------ | ------------ | ------------- | ----------:| --------:| --------:| -----:| -------:| ----:|
@@ -57,6 +57,6 @@ Intel Xeon CPU E5-2678 v3 2.50GHz, 1 CPU, 24 logical and 12 physical cores
 | Directly     | netcoreapp5  | .NET Core 5.0 |   533.8 ns |  1.72 ns |  1.44 ns |  1.00 |    0.00 |    1 |
 | UsingVisitor | netcoreapp5  | .NET Core 5.0 | 1,398.0 ns |  9.24 ns |  8.19 ns |  2.62 |    0.02 |    2 |
 
-结论:
+Conclusions:
 
-1. 使用 visitor 会额外消耗 1-3 微秒（百万分之一秒）。所以如果你觉得这点时间可以接受，那就尽管使用。
+1. The use of the visitor consumes an extra 1-3 microseconds (a millionth of a second).So if you feel that this time can be accepted, then even though it is used.

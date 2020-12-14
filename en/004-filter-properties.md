@@ -1,5 +1,5 @@
 ---
-title: 0x04-过滤属性
+title: 0x04-Filter Properties
 description:
 published: true
 date: 2020-11-26T14:51:47.581Z
@@ -8,67 +8,67 @@ editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z
 ---
 
-我们已经掌握了 `ForEach` 的完整用法，现在我们来进一步了解一下如何按照需求来“过滤属性”。
+We have mastered the complete usage of `ForEach`, and now we come to learn more about how to "filter properties" according to the requirements.
 
-所谓“过滤属性”，是指在创建 object visitor 过程中跳过那些不满足条件的属性。
+The so-called "filtering property" refers to the skipping of those properties that do not meet the conditions during the creation of the object visitor.
 
-`ForEach` 的重载一共分为泛型和非泛型两个版本。这两者的过滤方式存在一定区别。
+`ForEach` are divided into generic and non-generic versions.There is a certain difference between the way the two are filtered.
 
-## ForEach 非泛型方式属性过滤
+## ForEach non-generic property filtering
 
-首先是最简单的重载形式：
+The first is the simplest form of overload：
 
 ```cs
 ForEach(Expression<Action<string, object>> foreachAction)
 ```
 
-有两种方式对其进行过滤：
+There are two ways to filter it：
 
-- 调用扩展方法 `ForEach(Expression<Action<string, object>> foreachAction, Func<PropertyInfo, bool>? propertyInfoFilter)`
-- 使用 FluentAPI `FilterProperty(Func<PropertyInfo, bool>? propertyInfoFilter).ForEach(Expression<Action<string, object>> foreachAction)`
+- Call the extension `ForEach(Expression<Action<string, object>> foreachAction, Func<PropertyInfo, bool>? propertyInfoFilter)`
+- Using FluentAPI `FilterProperty(Func<PropertyInfo, bool>? propertyInfoFilter).ForEach(Expression<Action<string, object>> foreachAction)`
 
-这两种方式得到的结果完全一样。我们以 FluentAPI 的方式举例说明：
+The results in both ways are exactly the same.Let's give an example of this in the form of fluentAPI：
 
-所有的属性都将被访问。这也是未指定的 filter 时的默认行为。
+All properties will be accessed.This is also the default behavior when filtering is not specified.
 
 ```cs
 FilterProperty(p => true).ForEach((name, value) => _ )
 ```
 
-`Name` 为 `"P_"` 开头的属性才会被访问。
+Property `Name` starting with `"P_"` will only be accessed.
 
 ```cs
 FilterProperty(p => p.Name.StartWith("P_")).ForEach((name, value) => _ )
 ```
 
-只有`string`类型的属性才会被访问。
+Only`string`types of properties will be accessed.
 
 ```cs
 FilterProperty(p => p.PropertyType == typeof(string)).ForEach((name, value) => _ )
 ```
 
-属性被标记为 RequiredAttribute 才会被访问
+The property is marked as RequiredAttribute to be accessed
 
 ```cs
 FilterProperty(p => p.GetCustomAttribute<RequiredAttribute>() != null ).ForEach((name, value) => _ )
 ```
 
-另外还有一些小的注意点：
+There are also a few small points:
 
-1. 同一个`ForEach`下`FilterProperty`虽然可以被多次调用，但是只会保留最后一个效果。
-2. 如果有多个`ForEach`，我们将以使用扩展方法形式调用。这样你不会容易使自己混乱。
+1. `FilterProperty` next to the same`ForEach` although can be called multiple times, only the last effect will be preserved.
+2. If there are multiple`ForEach`, we recommend to call it in the form of an extended method.That way you won't easily mess yourself up.
 
-## ForEach 泛型方式属性过滤
+## ForEach generic property filtering
 
-泛型的最简重载形式如下：
+The simplest overload form of generics is:
 
 ```cs
 ForEach<TValue>(Expression<Action<string, TValue>> foreachAction)
 ```
 
-与非泛型版本一样，泛型版本一样可以通过扩展方法和 FluentAPI 来指定属性过滤条件。我们以 FluentAPI 的方式举例说明：
+As with non-generic versions, generic versions can specify property filters by extending methods and FluentAPI.Let's give an example of this in the form of fluentAPI：
 
-所有的`string`属性都将被访问。这也是未指定的 filter 时的默认行为。这将跳过非`string`类型的属性。这两者是完全等效的。
+All`string`properties will be accessed.This is also the default behavior when filtering is not specified.This skips the non-`string`type of property.The two are perfectly equivalent to each other.
 
 ```cs
 ForEach<string>((name, value) => _ )
@@ -76,7 +76,7 @@ ForEach<string>((name, value) => _ )
 FilterProperty(p => p.PropertyType == typeof(string)).ForEach<string>((name, value) => _ )
 ```
 
-所有的属性都将被访问，并且在访问时会尝试强制转换为`string`，如果强制转换失败，将会引发异常。注意这和前一个例子不相同的行为。
+All the properties will be accessed, and will try to force conversion to`string`at the time of the visit, which will cause an exception if the forced conversion fails.注意这和前一个例子不相同的行为。
 
 ```cs
 FilterProperty(p => true).ForEach<string>((name, value) => _ )

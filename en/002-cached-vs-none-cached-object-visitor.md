@@ -61,7 +61,7 @@ Data:
 | ReflectProperty | netcoreapp5  | .NET Core 5.0 |   1,211.6 ns |    14.09 ns |    13.18 ns |     1.92 |    0.02 |    2 |
 | NoCacheVisitor  | netcoreapp5  | .NET Core 5.0 | 545,642.6 ns | 1,633.25 ns | 1,447.83 ns |   866.61 |    4.45 |    3 |
 
-结论:
+Conclusions:
 
-1. 构建一个 ObjectVisitor 需要花费一些时间，因为其中需要构建一些对象并且需要反射。所以我们建议将 ObjectVisitor 缓存起来使用。当然，在一些性能不敏感的场景，不缓存也无所谓，毕竟这个构建过程小于一毫秒。
-2. 缓存的 ObjectVisitor 比起反射要快多了。
+1. It takes some time to build an ObjectVisitor, because it needs to build some objects and it needs to be reflected.So we recommend caching the ObjectVisitor cache for use.Of course, in some scenarios where performance is not sensitive, it doesn't matter if the cache is not cached, after all, this construction process is less than a millisecond.
+2. The cached ObjectVisitor is much faster than the reflection.

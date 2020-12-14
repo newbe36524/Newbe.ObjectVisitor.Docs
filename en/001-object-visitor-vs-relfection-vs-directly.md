@@ -10,7 +10,7 @@ dateCreated: 2020-11-26T14:46:40.417Z
 
 ## Newbe.ObjectVisitor vs Reflection vs Directly
 
-以下基准测试所使用的物理机配置：
+The physical machine used by the following benchmark tests:
 
 ```ini
 
@@ -29,21 +29,21 @@ Intel Xeon CPU E5-2678 v3 2.50GHz, 1 CPU, 24 logical and 12 physical cores
 
 ### Newbe.ObjectVisitor vs Reflection vs Directly
 
-我们将会把属性的名称和值拼接为一个字符串，采用以下这些方案：
+We will concat the name and value of the property into a string, using the following methods:
 
-| 方法           | 描述                                                                   |
-| ------------ | -------------------------------------------------------------------- |
-| Directly     | 使用 StringBuilder 硬编码进行拼接                                             |
-| CacheVisitor | 使用 Newbe.ObjectVisitor 创建一个 ObjectVisitor 并缓存它，然后使用缓存后的 visitor 进行拼接 |
-| QuickStyle   | 使用 Newbe.ObjectVisitor 中内置写好的方法                                      |
+| Method       | Description                                                                                     |
+| ------------ | ----------------------------------------------------------------------------------------------- |
+| Directly     | Using StringBuilder in hard coding                                                              |
+| CacheVisitor | Create an ObjectVisitor with Newbe.ObjectVisitor and cache it, then run with the cached visitor |
+| QuickStyle   | Use the built-in methods in Newbe.ObjectVisitor                                                 |
 
-图表:
+Chart:
 
-![newbe.objectvisitor.benchmarktest.formatstringtest-barplot.png](/benchmark/newbe.objectvisitor.benchmarktest.formatstringtest-barplot.png)
+![newbe.objectvisitor.benchmarktest.formatstringtest-barplot.png](/benchmark/newbe.objectivisitor.benchmarktest.formatstringtest-barplot.png)
 
-数据:
+Data:
 
-| Method       | Job          | Runtime       |     Mean |    Error |   StdDev | Ratio | RatioSD | Rank |
+| Method       | Job          | Runtime       |    Mean. |    Error |   StdDev | Ratio | RatioSD | Rank |
 | ------------ | ------------ | ------------- | --------:| --------:| --------:| -----:| -------:| ----:|
 | Directly     | net461       | .NET 4.6.1    | 754.3 ns |  8.49 ns |  7.94 ns |  1.00 |    0.00 |    1 |
 | QuickStyle   | net461       | .NET 4.6.1    | 818.3 ns | 16.29 ns | 24.87 ns |  1.10 |    0.04 |    3 |
@@ -65,7 +65,7 @@ Intel Xeon CPU E5-2678 v3 2.50GHz, 1 CPU, 24 logical and 12 physical cores
 | QuickStyle   | netcoreapp5  | .NET Core 5.0 | 641.2 ns |  5.60 ns |  4.97 ns |  1.03 |    0.01 |    3 |
 | CacheVisitor | netcoreapp5  | .NET Core 5.0 | 604.2 ns |  8.19 ns |  7.66 ns |  0.97 |    0.01 |    1 |
 
-结论:
+Conclusions:
 
-1. 使用 Newbe.ObjectVisitor, 仅仅只用非常少的额外时间消耗就得到了和硬编码完全一样的效果。
-2. 使用 Newbe.ObjectVisitor 内置的方法，仅仅需要消耗非常少的额外时间就可以省去自己构建 visitor 的时间。是一种值得参考的编写方式。
+1. Using Newbe.ObjectVisitor, just using very little extra time consumption gets the exact same effect as hard coding.
+2. Using the Newbe.ObjectVisitor built-in method, it is only necessary to consume very little extra time to save yourself the time to build the visitor.It is a way of writing that is worth the reference.

@@ -1,5 +1,5 @@
 ---
-title: 0x01-我的第一个 Object Visitor
+title: 0x01 - My first Object Visitor
 description:
 published: true
 date: 2020-11-26T14:51:47.587Z
@@ -8,40 +8,40 @@ editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z
 ---
 
-## 预演准备
+## Preparation
 
-为了顺利的进行测试，你需要确保本地已经安装了以下这些必备的软件：
+In order to test smoothly, you need to make sure that the following prerequisites are installed locally：
 
-- dotnet 2.1 或者以上版本的 SDK，我们更建议直接安装 dotnet 5 SDK。下载地址：<https://dotnet.microsoft.com/download>
-- 安装一个趁手的 .net IDE。本演示过程将会使用 Visual Studio Code 作为基础演示 IDE。你也可以选择 Rider 或者 Visual Studio 来完成。
+- dotnet 2.1 or the SDK of the above version, we are more recommended to install the dotnet 5 SDK directly.Download address：<https://dotnet.microsoft.com/download>
+- Install a .net IDE at your advantage.This demo process will use Visual Studio Code as the basis for the demo IDE.You can also choose Rider or Visual Studio to do it.
 
-## 创建测试项目
+## Create a test project
 
-我们需要一个测试项目来演示如何创建一个属于你的第一个 Object Visitor。
+We need a test project to demonstrate how to create your first Object Visitor.
 
-首先，确保本地已经正确安装了 dotnet 2.1 或者以上版本的 sdk，你可以运行以下命令来确认当前安装的版本:
+First, make sure that dotnet 2.1 or above versions of sdk are installed correctly locally, and you can run the following commands to confirm the currently installed version:
 
 ```bash
 dotnet --info
 ```
 
-然后，随便找一个你喜欢的文件夹，运行以下命令来创建用于演示的测试控制台程序:
+Then, find a folder you like and run the following commands to create a test console program for demonstration:
 
 ```bash
 dotnet new console
 ```
 
-最后，继续运行以下命令来安装最新的 Newbe.ObjectVisitor 工具包:
+Finally, continue with the following commands to install the latest Newbe.ObjectVisitor package:
 
 ```bash
 dotnet add package newbe.objectvisitor
 ```
 
-这样，用于测试的项目就创建完成了。
+In this way, the project used for testing is created and completed.
 
-## 创建一个简单的数据模型
+## Create a simple data model
 
-我们使用 IDE 打开刚刚创建的项目，添加一个简单的数据模型类 `OrderInfo` :
+Let's use the IDE to open the project we just created and add a simple data model `OrderInfo` :
 
 ```cs
 public class OrderInfo
@@ -52,13 +52,13 @@ public class OrderInfo
 }
 ```
 
-## 实现一个拼接所有属性的逻辑
+## Realize the logic of a splicing all the properties
 
-我们在 Program.cs 中添加以下代码来完成这些逻辑：
+We add the following code in Program.cs to complete these logic：
 
-1. `new` 一个 `OrderInfo` `order`
-2. 使用 `StringBuilder` 将 `order` 的所有属性名称和值拼接在一起
-3. 输出最后的 `string`
+1. `new` a `OrderInfo` `order`
+2. Stitch together all the property names and values `order` with the `StringBuilder`
+3. Output the `string`
 
 ```cs
 using System;
@@ -94,13 +94,13 @@ namespace yueluo_dalao_yes
 
 ```
 
-我们使用以下命令来运行写好的逻辑：
+We use the following commands to run the written code:
 
 ```bash
 dotnet run
 ```
 
-就会得到以下这样的结果：
+It's going to get the following results：.
 
 ```bash
 OrderId: 1
@@ -108,13 +108,13 @@ Buyer: yueluo
 TotalPrice: 62359.1478
 ```
 
-## 使用 Object Visitor 再次实现上面的逻辑
+## Use Object Visitor to implement the logic above again
 
-我们通过 Newbe.ObjectVisitor 来一样实现上面的逻辑：
+Let's do the same with Newbe.ObjectVisitor to implement the logic：
 
-1. 使用 `V()` 扩展方法来创建一个 Object Visitor
-2. 调用 Object Visitor 的 `ForEach` 方法来注册 Visit 过程的行为
-3. 运行创建好的 Object Visitor
+1. Create Object Visitor using `V()` extension method
+2. Call Object Visitor's `ForEach` method to register behavior of the Visit process
+3. Run the created Object Visitor
 
 ```cs
 using System;
@@ -151,36 +151,36 @@ namespace yueluo_dalao_yes
 
 ```
 
-运行这个代码，你将会得到和上一节相同的结果。
+Running this code, you're going to get the same results as the previous section.
 
-## 那这么做究竟带来了什么好处？
+## So what's the benefit of doing that?
 
-首先，使用 Object Visitor 可以动态的适应模型类的变化，这点好处非常明显。
+First, the use of Object Visitor can dynamically adapt to changes in model classes, the benefit of which is very obvious.
 
-当 `OrderInfo` 中的属性增加时，“拼接部分”的代码可以不用变化，实现动态的适配。
+As properties of `OrderInfo` change in the file, the "stitched part" code can be dynamically adapted without change.
 
-另外，还有一些好处是本示例没有体现的，将会在后续的文档中进行介绍：
+Also, there are some benefits that are not embodied in this example and will be introduced in subsequent documents：
 
-1. 它的运行效率很高。根据已有的基准测试，其性能表征和直接硬编码差距很小。
-2. 可以使用丰富的方式来对需要访问的属性进行多种方式过滤，例如：基于 `Attribute` 的过滤。
-3. 有了这种方式之后可以很轻松的扩展出基于对象属性的其他功能，例如：对象的属性验证（FluentValidation），对象的映射（AutoMapper）和对象的比较（Comparer）。
+1. It operates efficiently.According to already existing benchmark tests, their performance is very similar with direct hard coding.
+2. There are a number of ways to filter properties that need access, such as: based `Attribute` filtering.
+3. Having this way can be followed by an easy extension of other functions based on the object properties, such as the property verification (FluentValidation), the mapping of objects (AutoMapper) and the comparison of objects (Comparer).
 
-## 那这和直接使用反射有什么区别？
+## So what is the difference between this and direct use of reflection?
 
-使用反射来实现以上的效果也是可以的，但相较来说，Object Visitor 的实现方式在性能方面根据优势：
+It is also possible to use reflection to achieve the above effects, but Object Visitor is implemented in a performance-based manner:
 
-1. 根据已有的基准测试，Object Visitor 基于表达式树实现，其运行效率要比直接使用反射相关的读写方法高出许多。
-2. Object Visitor 提供了基于泛型，在一些特定的场景可以完全避免装箱拆箱所带来的开销。
+1. Based on existing benchmarks, Object Visitor is implemented based on expression trees and is much more efficient than using reflection-related read and write methods directly.
+2. Object Visitor provides generic-based methods, and in some specific scenarios the overhead of unboxing can be completely avoided.
 
-> [你可以通过点击这里来查看使用反射和使用 object visitor 的基准测试](/800-benchmark/001-object-visitor-vs-relfection-vs-directly)
+> [You can see benchmarks for using reflection and object visitor by clicking here](/800-benchmark/001-object-visitor-vs-relfection-vs-directly)
 
-## 本篇小结
+## Summary
 
-到这里，你已经初步了解了什么是 Newbe.ObjectVisitor，以及其基本的用法。
+Here, you've got a first look at what Newbe.ObjectVisitor is and its basic usage.
 
-不过，这只是演示代码，展现的内容非常有限，因此，你还可以继续阅读下篇来进一步了解更多紧张刺激的特性。
+However, this is just demo code and the content is very limited, so you can continue reading the next section to learn more about the features of tension stimulation.
 
-你也可以加入以下这些群组来和我们一起讨论：
+You can also join the following groups to discuss with us:
 
-- QQ 群: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
+- QQ group: 【Newbe.Claptrap CL4P-TP 610394020 】：<https://jq.qq.com/?_wv=1027&k=Lkhbwj0o>
 - Discord：<https://discord.gg/6yd3mK6M>

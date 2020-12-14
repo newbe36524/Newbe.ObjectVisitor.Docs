@@ -76,16 +76,16 @@ ForEach<string>((name, value) => _ )
 FilterProperty(p => p.PropertyType == typeof(string)).ForEach<string>((name, value) => _ )
 ```
 
-All the properties will be accessed, and will try to force conversion to`string`at the time of the visit, which will cause an exception if the forced conversion fails.注意这和前一个例子不相同的行为。
+All the properties will be accessed, and will try to force conversion to`string`at the time of the visit, which will cause an exception if the forced conversion fails.Note that this is not the same behavior as in the previous example.
 
 ```cs
 FilterProperty(p => true).ForEach<string>((name, value) => _ )
 ```
 
-因此，和非泛型版本相比，泛型版本最大的区别就是以下：
+Therefore, the biggest difference between generic versions and non-generic versions is the following：
 
-1. 访问时将会发生强制转换，如果转换失败将会引发异常
-2. 默认不写过滤条件时将会按照给定的泛型类型进行过滤。
+1. There will be a forced conversion at the time of the visit, if the conversion fails will cause an exception
+2. When the filter is not written by default, it is filtered by a given generic type.
 
 ## 过滤属性发生在构建 object visitor 时
 

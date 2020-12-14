@@ -1,3 +1,9 @@
 files:
-  - source: /zh/**/*.md
-    translation: /%two_letters_code%/**/*.md
+  - source: /zh/*.md
+    translation: /%two_letters_code%/%original_file_name%
+  - source: /zh/001-quick-started/*.md
+    translation: /%two_letters_code%/001-quick-started/%original_file_name%
+  - source: /zh/800-benchmark/*.md
+    translation: /%two_letters_code%/800-benchmark/%original_file_name%
+  - source: /zh/900-contribution/*.md
+    translation: /%two_letters_code%/900-contribution/%original_file_name%

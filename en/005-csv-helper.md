@@ -1,5 +1,5 @@
 ---
-title: 0x05-综合示例，导出CSV
+title: 0x05-Integrated Example, Export CSV
 description:
 published: true
 date: 2020-11-26T14:51:47.581Z
@@ -8,23 +8,23 @@ editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z
 ---
 
-现在，我们来完成一个稍微复杂一点的场景用例。
+Now let's complete a slightly more complex scenario use case.
 
-## 将实体导出为 CSV 文件
+## Export entities as CSV files
 
-为了使下文的示例更加符合生产实际，我们在这里引入一个具体的场景。
+In order for the examples below to be more in line with production realities, we introduce a specific scenario here.
 
-我们需要将实体导出为 CSV 文件。
+We need to export the entity as a CSV file.
 
-CSV 文件一般包含两个部分。
+CSV files typically consist of two parts.
 
-第一个部分是文件的头部。头部中包含了每一列的列名。
+The first part is the head of the file.The header contains the column name for each column.
 
-第二个部分是内容部分。内容部分每行都是一条记录。
+The second part is the content part.Each line in the content section is a record.
 
-不论是头部还是内容部分每个属性之间都使用逗号进行分隔。
+Each property, whether header or content section, is separated by a comma.
 
-这里我们使用前文使用到的 `OrderInfo` 进行演示：
+Here we use the previously used `OrderInfo` for presentation:
 
 ```cs
 public class OrderInfo
@@ -35,7 +35,7 @@ public class OrderInfo
 }
 ```
 
-则导出的 CSV 样例如下：
+The CSV-like cases that are exported are as follows：
 
 ```csv
 OrderId,Buyer,TotalPrice
@@ -44,16 +44,14 @@ OrderId,Buyer,TotalPrice
 3,traceless,123456
 ```
 
-## 分析实现思路
+## Analyze the implementation ideas
 
-这个业务场景的实现方式可以非常多样化，此处我们简要将逻辑分为以下部分：
+The way in which this business scenario is realized can be very diversified, here we briefly divide the logic into the following sections：
 
-1. 将一组`OrderInfo`转换为一个表格形式的中间数据
-2. 将中间数据采用 CSV 的格式拼接成为文本
+1. 使用 object visitor 访问`OrderInfo`的所有属性
+2. 将所有属性传递给 CSV Writer 进行输出
 
-通过这样分离可以将数据转换和 CSV 分隔开。其中，将`OrderInfo`转换为中间数据的部分，可以使用 object visitor 进行实现。
-
-## 实现 CSV 写入器
+## Implement the CSV writer
 
 首先，我们先添加第 2 步所需要的 CSV 写入器：
 
@@ -153,7 +151,7 @@ csvWriter.WriteHeader("OrderId")
 Console.WriteLine(sb.ToString());
 ```
 
-## 输出表头
+## The output header
 
 现在，我们使用第一个 object visitor 来调用上文的 CsvWriter 来输出表头：
 
@@ -177,7 +175,7 @@ Console.WriteLine(sb.ToString());
 OrderId,Buyer,TotalPrice
 ```
 
-## 输出表行
+## The output table row
 
 现在，我们在增加一个 object visitor 来输出表的每行内容：
 
@@ -228,7 +226,7 @@ Console.WriteLine(sb.ToString());
 
 这正是我们期望的表中的行数据。
 
-## 创建 CsvExtensions
+## Create CsvExtensions
 
 现在，我们将以上的表头和表行的相关逻辑进行整合，将他们全部都添加到一个 CsvExtensions 的类型中。并且增加对于`IEnumerable<T>`的扩展方法，这样在进行调用时就会更加简单。这将仿照先前`FormatToStringExtensions`中的做法。
 
@@ -294,7 +292,7 @@ public static class CsvExtensions
 
 与先前的`FormatToStringExtensions`一样，此处采用的是泛型静态类配合扩展方法的形式来创建帮助方法。不同的是，在这个示例中存在两个 object visitor。因此多考虑抽象了一个`ICsvHelper`和实现类来实现复杂逻辑的聚合。
 
-## 输出时跳过特定的列
+## Skip a specific column when output
 
 我们希望在输出 CSV 的时候跳过一些特定的列，这就需要对属性进行过滤。
 
@@ -348,6 +346,6 @@ OrderId,TotalPrice
 3,123456
 ```
 
-## 总结
+## Summary
 
 我们通过一个简单的生产实例来理解 object visitor 的用法。实际生产问题会比这个更加复杂。开发者可以在生产实际中进行尝试，强化理解。

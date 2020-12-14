@@ -48,10 +48,8 @@ OrderId,Buyer,TotalPrice
 
 这个业务场景的实现方式可以非常多样化，此处我们简要将逻辑分为以下部分：
 
-1. 将一组`OrderInfo`转换为一个表格形式的中间数据
-2. 将中间数据采用 CSV 的格式拼接成为文本
-
-通过这样分离可以将数据转换和 CSV 分隔开。其中，将`OrderInfo`转换为中间数据的部分，可以使用 object visitor 进行实现。
+1. 使用 object visitor 访问`OrderInfo`的所有属性
+2. 将所有属性传递给 CSV Writer 进行输出
 
 ## 实现 CSV 写入器
 

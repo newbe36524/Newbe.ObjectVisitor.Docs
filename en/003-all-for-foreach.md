@@ -1,5 +1,5 @@
 ---
-title: 0x03-ForEach 全面观
+title: 0x03-ForEach Full View
 description:
 published: true
 date: 2020-11-26T14:51:47.581Z
@@ -8,11 +8,11 @@ editor: undefined
 dateCreated: 2020-11-26T14:46:40.417Z
 ---
 
-前面，我们已经了解组成一个 object visitor 最基本的部件以及最佳的性能做法。本篇我们来介绍一下更多关于 `ForEach` 方法的奇怪操作。
+We've learned about the most basic parts that make up an object visitor and the best performance practices.This article we come to introduce more about the strange operation of the `ForEach` method.
 
-## ForEach 的重载
+## Overload of ForEach
 
-ForEach 以下主要的重载形式：
+The following major overloaded forms of ForEach：
 
 ```cs
 ForEach(Expression<Action<IObjectVisitorContext<T, object>>> foreachAction)
@@ -22,59 +22,59 @@ ForEach<TValue>(Expression<Action<IObjectVisitorContext<T, TValue>>> foreachActi
 ForEach<TValue>(Expression<Action<string, TValue>> foreachAction)
 ```
 
-这四个重在分别按照“泛型”和“使用 Context”两两交叉得到。
+These four overloads are obtained by crossing "generic" and "using Context" respectively.
 
-### 使用 Context ForEach 重载
+### Overload with Context ForEach
 
-首先说明“使用 Context”重载所带来的区别。
+Let's start by explaining the difference between using Context overloading.
 
-在下面这个普通重载中，你只能获取 name 和 value 两个属性。
+In this normal overload below, you can only get the name and value properties.
 
 ```cs
 ForEach(Expression<Action<string, object>> foreachAction)
 ```
 
-这也是最基本的重载形式，可以让你读取所有属性的名称和值。
+This is also the most basic form of overloading, allowing you to read the names and values of all properties.
 
-但是你可能还需要更多的上下文信息，因此就引入了一个可以使用 Context 进行访问的重载形式：
+But you may also need more contextual information, so you've introduced an overloaded form that you can access using Context：
 
 ```cs
 ForEach(Expression<Action<IObjectVisitorContext<T, object>>> foreachAction)
 ```
 
-这就带来了一些优势：
+This brings some advantages：
 
-- 你可以访问除了 Name 和 Value 之外更多的信息了，目前至少包括：表示原始访问对象的 SourceObject 和表示属性信息的 PropertyInfo
-- Context 不是完全只读的。其中的 Value 属性允许赋值。因此，你可以通过赋值来修改原始对象中的属性值。这是通过参数传递无法做到的(未使用 ref)。
-- 方法签名不会发生变化，因为只有一个参数。不会因为增加属性而需要修改方法签名。
+- You have access to more information than Name and Value, and currently includes at least：SourceObject, which represents the original access object, and PropertyInfo, which represents the property information
+- Context is not completely read-only.Where the Value property allows assignments.Therefore, you can assign values to modify property values in the original object.This cannot be done by parameter passing (ref is not used).
+- The method signature does not change because there is only one parameter.It is not necessary to modify the method signature because of the added properties.
 
-不过这也会带来一些损失：
+But it's going to bring some disadvantage:
 
-- 方法签名更长
-- 运行时会创建 Context 对象，这将带来十分轻微的性能开销
+- Method signatures are longer
+- A Context object is created when run, which brings a very slight performance overhead
 
-因此，如果在你的场景中以上优势大于其损失，不妨也考虑使用 Context 。
+Therefore, if the advantages above outweigh the losses in your scenario, you might also consider using Context.
 
-### 使用泛型 ForEach 重载
+### Overload with generic ForEach
 
-使用 ForEach 的泛型重载可以使得得到的 Value 是一个明确类型的属性值，而不会是一个个 object 类型。
+Using ForEach's generic overload can make the resulting Value a property value of an explicit type, not an object type.
 
-这样做，你可以得到以下这些好处：
+By doing so, you can get the following benefits：
 
-- 对于值类型你可以避免装箱和拆箱消耗
-- 你可以明确使用预先知道的类型
+- For value types you can avoid boxing and unboxing consumption
+- You can explicitly use pre-known types
 
-当然，你也就失去了一些：
+Of course, you've lost some：
 
-- 你无法通用的处理所有属性，因为特别是一个类型中属性类型各不相同的时候
+- You can't handle all properties in general, especially if the property types are different in one type
 
-在使用泛型重载时，还有一点非常重要的内容，就是对需要访问的类型进行过滤。毕竟一个对象中并不是所有的类型都可以装换为同一个泛型类型。我们将会在下一小节进行说明。
+When using generic overloading, it is also important to filter the types that need access.After all, not all types in one object can fit into the same generic type.We'll explain this in the next section.
 
-Context 也有泛型版本的重载。其作用也就是结合了 Context 和泛型。
+Context also has a generic version of the overload.Its role is to combine Context and generics.
 
-## 添加扩展数据
+## Add extension data
 
-和常规的重载类似，如果一个 object visitor 被指定了需要传递扩展数据。那么其重载也将发生变化，可以对传入的扩展数据进行处理：
+Similar to regular overloading, if an object visitor is specified to pass extended data.Then its overload will also change, allowing the incoming extended data to be processed：
 
 ```cs
 ForEach(Expression<Action<IObjectVisitorContext<T, TExtend, object>>> foreachAction)
@@ -84,17 +84,17 @@ ForEach<TValue>(Expression<Action<IObjectVisitorContext<T, TExtend, TValue>>> fo
 ForEach<TValue>(Expression<Action<string, TValue, TExtend>> foreachAction)
 ```
 
-这点开发者们应该非常熟悉，因为我们前篇中使用的“格式化对象”示例中就使用的是带有扩展数据的 object visitor。
+This point developers should be very familiar with, since the object visitor with extended data is used in the "formatted objects" example used in our previous article.
 
-和常规重载类似，以上重载也有 context 形式和泛型形式，功能也是类似的。这里也就不多说明。
+Similar to regular overloads, the above overloads also have context and generic forms, and the functionality is similar.There is just not much to say about it here.
 
-## 多次调用 ForEach
+## ForEach is called multiple times
 
-在一个 object visitor 中允许多次调用 ForEach 进行注册。
+ForEach is allowed to be called multiple times to register in an object visitor.
 
-值得注意的是，这些注册相互之间是共享同一原始对象的，因此，前面一个 ForEach 的修改是会对后一个产生影响的。
+It is interesting to note that these registers share the same original object with each other, so that the modification of the previous ForEach will have an impact on the latter.
 
-这里有一个例子，我们将 order 中的字符串加入到 list1 当中。但是在第一次添加之后会将其属性值修改为了空。因此 list2 就无法得到数值了。
+Here's an example of us adding strings from order to list1.However, after the first addition, its property value is modified to empty.So list2 can't get a value.
 
 ```cs
 using System;
@@ -141,7 +141,7 @@ namespace yueluo_dalao_yes
 }
 ```
 
-这段代码将会输出以下结果：
+This code will output the following results：
 
 ```cs
 1

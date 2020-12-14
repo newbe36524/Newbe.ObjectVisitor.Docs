@@ -48,12 +48,12 @@ OrderId,Buyer,TotalPrice
 
 The way in which this business scenario is realized can be very diversified, here we briefly divide the logic into the following sections：
 
-1. 使用 object visitor 访问`OrderInfo`的所有属性
-2. 将所有属性传递给 CSV Writer 进行输出
+1. Access to all the properties of`OrderInfo`with the object visitor
+2. Pass all the properties to the CSV Writer for output
 
 ## Implement the CSV writer
 
-首先，我们先添加第 2 步所需要的 CSV 写入器：
+First, let's add the CSV writer required for step 2：
 
 ```cs
 public interface ICsvWriter
@@ -127,7 +127,7 @@ public class CsvWriter : ICsvWriter
 }
 ```
 
-有了这样一个基础的`CsvWriter`,我们便可以首先来生成一个样例中的表格：
+With such a basic`CsvWriter`, we can first generate a table in a sample：
 
 ```cs
 var sb = new StringBuilder();
@@ -153,7 +153,7 @@ Console.WriteLine(sb.ToString());
 
 ## The output header
 
-现在，我们使用第一个 object visitor 来调用上文的 CsvWriter 来输出表头：
+Now, let's use the first object visitor to call CsvWriter above to output the header：
 
 ```cs
 var sb = new StringBuilder();
@@ -169,7 +169,7 @@ csvWriter.FinishHead();
 Console.WriteLine(sb.ToString());
 ```
 
-这样我就会得到如下的结果：
+That way I'll get the results as follows：.
 
 ```csv
 OrderId,Buyer,TotalPrice
@@ -177,7 +177,7 @@ OrderId,Buyer,TotalPrice
 
 ## The output table row
 
-现在，我们在增加一个 object visitor 来输出表的每行内容：
+Now, we're adding an object visitor to output each row of the table：
 
 ```cs
 var rowWriter = default(OrderInfo)
@@ -216,7 +216,7 @@ foreach (var order in orders)
 Console.WriteLine(sb.ToString());
 ```
 
-这样就会得到如下的内容：
+This will get the following content：
 
 ```csv
 1,yueluo,99999
@@ -224,11 +224,11 @@ Console.WriteLine(sb.ToString());
 3,traceless,123456
 ```
 
-这正是我们期望的表中的行数据。
+This is exactly the row data in the table we expect.
 
 ## Create CsvExtensions
 
-现在，我们将以上的表头和表行的相关逻辑进行整合，将他们全部都添加到一个 CsvExtensions 的类型中。并且增加对于`IEnumerable<T>`的扩展方法，这样在进行调用时就会更加简单。这将仿照先前`FormatToStringExtensions`中的做法。
+Now, we've consolidated the logic associated with the headers and table rows above, adding them all to a CsvExtensions class.And increasing extension method for`IEnumerable<T>`, so that it will be simpler when making calls.This follows the`FormatToStringExtensions`previously.
 
 ```cs
 public static class CsvExtensions
@@ -290,13 +290,13 @@ public static class CsvExtensions
 }
 ```
 
-与先前的`FormatToStringExtensions`一样，此处采用的是泛型静态类配合扩展方法的形式来创建帮助方法。不同的是，在这个示例中存在两个 object visitor。因此多考虑抽象了一个`ICsvHelper`和实现类来实现复杂逻辑的聚合。
+As with the previous`FormatToStringExtensions`, the help method is created here in the form of a generic static class mate extension method.The difference is that there are two object visitors in this example.So consider abstracting an`ICsvHelper`and implementing classes to achieve the aggregation of complex logic.
 
 ## Skip a specific column when output
 
-我们希望在输出 CSV 的时候跳过一些特定的列，这就需要对属性进行过滤。
+We want to skip some specific columns when we output CSV, which requires filtering the properties.
 
-我们增加一个新的 Attribute:
+Let's add a new Attribute:
 
 ```cs
 public class IgnoreAttribute : Attribute
@@ -304,7 +304,7 @@ public class IgnoreAttribute : Attribute
 }
 ```
 
-然后将这个 Attribute 标记在不希望输出的属性上：
+Then mark this Attribute on properties that you don't want to：
 
 ```cs
 public class OrderInfo
@@ -316,9 +316,9 @@ public class OrderInfo
 }
 ```
 
-然后，我们只要在 object visitor 中忽略这些被标记为 Ingore 的属性即可。
+Then we just ignore these properties that are marked as Ingore in object visitor.
 
-其中核心的修改如下：
+The changes to the core are as follows：
 
 ```cs
 static bool Filter(PropertyInfo p) => p.GetCustomAttribute<IgnoreAttribute>() == null;
@@ -337,7 +337,7 @@ _bodyWriter = default(T)
     .Cache();
 ```
 
-这样我们在输出 CSV 时也就不存在这一列了：
+So we don't have this column when we output CSV：
 
 ```csv
 OrderId,TotalPrice
@@ -348,4 +348,4 @@ OrderId,TotalPrice
 
 ## Summary
 
-我们通过一个简单的生产实例来理解 object visitor 的用法。实际生产问题会比这个更加复杂。开发者可以在生产实际中进行尝试，强化理解。
+We use a simple production example to understand the use of object visitor.The actual production problem will be more complicated than this.Developers can experiment in production practices to enhance understanding.
